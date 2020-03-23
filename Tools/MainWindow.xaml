@@ -23,27 +23,35 @@
         <Panel.Background>
             <ImageBrush ImageSource="Resources/images/bg_3.png" Stretch="UniformToFill" />
         </Panel.Background>
-        <Grid>
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="MANGO MANAGER" FontSize="50" Foreground="#FFFFFFFF" VerticalAlignment="Center" Margin="100 0 0 0" />
+            <Border Grid.Column="1">
+                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="章德龙" FontSize="30" Foreground="#FFFFFFFF" HorizontalAlignment="Right" Margin="0 0 20 0" />
+                        <TextBlock Grid.Row="1" Text="芒宇科技股份有限公司-软件研发部" FontSize="14" Foreground="#FFFFFFFF" HorizontalAlignment="Right" Margin="0 0 20 0" />
+                    </Grid>
+                    <Border Height="50" Width="50" Margin="0" HorizontalAlignment="Right" BorderBrush="Black">
+                        <Grid>
+                            <materialDesign:PackIcon Kind="User" Foreground="#FFFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Height="75" />
+                        </Grid>
+                    </Border>
+                    <Border Height="50" Width="50" Margin="10 0 20 0" HorizontalAlignment="Right" BorderBrush="Black" MouseLeftButtonUp="Window_Closing">
+                        <Grid>
+                            <materialDesign:PackIcon Kind="ExitToApp" Foreground="#FFFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" />
+                        </Grid>
+                    </Border>
+                </WrapPanel>
+            </Border>
         </Grid>
-        <TextBlock Grid.Column="0" Text="Administrator" FontSize="50" Foreground="#FFFFFFFF" VerticalAlignment="Center" Margin="100 0 0 0" />
-        <Grid Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-        </Grid>
-        <Button Width="50" Height="50" VerticalAlignment="Center" BorderThickness="0" HorizontalAlignment="Right" Margin="0 0 20 0" Click="Window_Closing" >
-            <materialDesign:PackIcon Kind="WindowClose" Foreground="#FFFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" />
-        </Button>
-        <Border Height="50" Width="50" Margin="0" HorizontalAlignment="Right" >
-            <Grid>
-                <materialDesign:PackIcon Kind="LetterNCircle" Foreground="#FFFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Height="75" />
-            </Grid>
-        </Border>
 
         <ListBox Grid.Row="1">
             <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">

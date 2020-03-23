@@ -30,3 +30,4 @@ D:\windowsWPF\Tools\Tools\Tools\bin\Debug\MaterialDesignThemes.Wpf.pdb
 D:\windowsWPF\Tools\Tools\Tools\bin\Debug\MaterialDesignThemes.Wpf.xml
 D:\windowsWPF\Tools\Tools\Tools\obj\Debug\App.baml
 D:\windowsWPF\Tools\Tools\Tools\obj\Debug\Tools.csproj.CopyComplete
+D:\windowsWPF\Tools\Tools\Tools\obj\Debug\Tools.csprojAssemblyReference.cache
