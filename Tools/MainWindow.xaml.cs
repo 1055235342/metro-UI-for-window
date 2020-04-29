@@ -1,5 +1,14 @@
-﻿using System.Windows;
+﻿using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Xml;
+using Tools.BeanModel;
+using Tools.utils;
 using Tools.ViewModel;
 
 namespace Tools
@@ -12,19 +21,14 @@ namespace Tools
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+            this.DataContext = new MainWindowViewModel();//D:\windowsWPF\Tools\Tools\Tools\MainWindow.xaml
+
+            MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
         }
 
-
-        private void ScrollViewer_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        private void MainWindow_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var scrollViewer = (ScrollViewer)sender;
-            if (e.Delta > 0)
-                scrollViewer.LineLeft();
-            else
-                scrollViewer.LineRight();
-
-            e.Handled = true;
+            DragMove();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -37,9 +41,6 @@ namespace Tools
             Application.Current.Shutdown();
         }
 
-        private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            MessageBox.Show("111111111");
-        }
     }
+
 }

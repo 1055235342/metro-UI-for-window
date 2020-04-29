@@ -1,0 +1,66 @@
+﻿[
+  {
+    "id": 0,
+    "name": "公司本地测试",
+    "products": [
+      {
+        "productId": 1,
+        "productName": "基础数据登录"
+      },
+      {
+        "productId": 5,
+        "productName": "消息推送"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "外经贸接口测试",
+    "products": [
+      {
+        "productId": 2,
+        "productName": "宇视（速通门）登录"
+      },
+      {
+        "productId": 6,
+        "productName": "查询人员的详细信息"
+      },
+      {
+        "productId": 4,
+        "productName": "为人员添加或删除门禁权限组"
+      },
+      {
+        "productId": 7,
+        "productName": "查询黑名单人员"
+      },
+      {
+        "productId": 3,
+        "productName": "删除黑名单人员"
+      },
+      {
+        "productId": 8,
+        "productName": "添加黑名单人员"
+      },
+      {
+        "productId": 9,
+        "productName": "获取设备列表"
+      },
+      {
+        "productId": 10,
+        "productName": "发送图文到室内机"
+      },
+      {
+        "productId": "11",
+        "productName": "宇视（小昆仑）登录"
+      },
+      {
+        "productId": "12",
+        "productName": "获取所有摄像机列表"
+      },
+      {
+        "productId": "13",
+        "productName": "人脸轨迹查询"
+      }
+    ]
+  }
+]

@@ -1,0 +1,89 @@
+﻿[
+  {
+    "id": 1,
+    "title": "title1",
+    "menuid": 1,
+    "data": [
+      {
+        "id": "1",
+        "name": "第三方接口模拟",
+        "width": 314,
+        "height": 150,
+        "icon": 100,
+        "view": "/pages/SimulationView.xaml",
+        "color": "#1784db"
+      },
+      {
+        "id": "3",
+        "name": "应用3",
+        "width": 314,
+        "height": 150,
+        "icon": 100,
+        "color": "#1784db"
+      },
+      {
+        "id": "4",
+        "name": "应用4",
+        "width": 314,
+        "height": 150,
+        "icon": 100,
+        "color": "#1784db"
+      },
+      {
+        "id": "5",
+        "name": "应用5",
+        "width": 314,
+        "height": 150,
+        "icon": 100,
+        "color": "#1784db"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "title2",
+    "menuid": 2,
+    "data": [
+      {
+        "id": "1",
+        "name": "应用1",
+        "width": 314,
+        "height": 150,
+        "icon": 100,
+        "color": "#1784db"
+      },
+      {
+        "id": "2",
+        "name": "应用2",
+        "width": 150,
+        "height": 150,
+        "icon": 100,
+        "color": "#1784db"
+      },
+      {
+        "id": "3",
+        "name": "应用3",
+        "width": 150,
+        "height": 150,
+        "icon": 100,
+        "color": "#1784db"
+      },
+      {
+        "id": "4",
+        "name": "应用4",
+        "width": 150,
+        "height": 150,
+        "icon": 100,
+        "color": "#1784db"
+      },
+      {
+        "id": "5",
+        "name": "应用5",
+        "width": 150,
+        "height": 150,
+        "icon": 100,
+        "color": "#1784db"
+      }
+    ]
+  }
+]

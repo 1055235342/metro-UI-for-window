@@ -1,0 +1,317 @@
+﻿<Page x:Class="Tools.pages.SimulationView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tools.pages" 
+      xmlns:comntrol="clr-namespace:Tools.control"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" Height="900" Width="1800"
+      Title="SimulationView" Background="#FFFDFDFD">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.10*"/>
+            <RowDefinition Height="0.85*"/>
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Cursor="Hand" 
+                Height="50" 
+                Width="50" 
+                Margin="50 20 20 0" Background="#FF0072C6" HorizontalAlignment="Left" Click="back_for_main" BorderBrush="{x:Null}">
+            <materialDesign:PackIcon Kind="Home"
+                                         Foreground="White"
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Center" Height="30" Width="30"/>
+        </Button>
+
+
+        <Button Grid.Row="0" 
+                Cursor="Hand" 
+                Height="50" 
+                Width="100" 
+                Margin="120 20 20 0" Background="#FF0072C6" HorizontalAlignment="Left" Click="A_key_test" BorderBrush="{x:Null}">
+            一键测试
+        </Button>
+        
+        
+        <Grid Grid.Row="1" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.013*"/>
+                </Grid.ColumnDefinitions>
+                <materialDesign:Card Grid.Column="0" Padding="32" Margin="16">
+                    <TreeView ItemsSource="{Binding Simulations}">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Products}">
+                                <TextBlock VerticalAlignment="Center"  FontSize="14" Text="{Binding Name}" Foreground="Black"/>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ProductName}" Tag="{Binding ProductId}" PreviewMouseLeftButtonDown="openSimulationPage"/>
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </materialDesign:Card>
+
+                <Grid  Grid.Column="1">
+                    <Grid Margin="0,0,89,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:Card Grid.Row="0" Padding="32" Margin="16">
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                               <comntrol:LoadingWait Text="正在努力请求服务器, 请稍候..."
+                                                     Panel.ZIndex="1"
+                                                     x:Name="loadWait"
+                                                     Visibility="Hidden"
+                                                     Background="{x:Null}" />
+
+                                <StackPanel Grid.Row="0" Margin="0 -10 0 0">
+                                    
+                                    <TextBlock IsEnabled="false" x:Name="Pid" Text="0" Visibility="Hidden"/>
+                                    <WrapPanel>
+                                        <TextBlock Text="名称:" Margin="0 0 0 0" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                                        <TextBox Margin="15 0 0 0" x:Name="ProductTitle"  Width="1200" Height="30" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <TextBlock Text="注释:" Margin="0 10 0 0" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                                        <TextBox Margin="15 0 0 0" x:Name="ProductAnnotation" Width="1200" Height="30" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <ComboBox Name="requestType" FontSize="18" 
+                                          Width="100"  Height="36" Margin="0 10 0 0"
+                                          VerticalContentAlignment="Center"
+                                          IsEditable="false" SelectedIndex="0">
+                                            <ComboBoxItem Content="POST"/>
+                                            <ComboBoxItem Content="GET"/>
+                                            <ComboBoxItem Content="DELETE"/>
+                                            <ComboBoxItem Content="PUT"/>
+                                        </ComboBox>
+                                        <ComboBox Name="samplenoSource" FontSize="18" 
+                                          Width="100"  Height="36" Margin="30 10 0 0"
+                                          VerticalContentAlignment="Center"
+                                          IsEditable="false" SelectedIndex="0">
+                                            <ComboBoxItem Content="HTTP"/>
+                                            <ComboBoxItem Content="HTTPS"/>
+                                            <ComboBoxItem Content="TCP"/>
+                                        </ComboBox>
+                                        <TextBlock Text="IP:" Margin="30 20 0 0" Height="36" VerticalAlignment="Center" FontSize="18"/>
+                                        <TextBox Name="ipAddress" Margin="30 10 0 0" Width="150" Height="36" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        <TextBlock Text="端口:" Margin="30 20 0 0" Height="36" VerticalAlignment="Center" FontSize="18"/>
+                                        <TextBox Name="port" Margin="30 10 0 0" Width="70" Height="36" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        <TextBlock Text="路径:" Margin="30 20 0 0" Height="36" VerticalAlignment="Center" FontSize="18"/>
+                                        <TextBox Name="uri" Margin="30 10 0 0" Width="520" Height="36" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <ComboBox Name="contentType" FontSize="18" 
+                                            Width="350"  Height="36" Margin="0 10 0 0"
+                                            VerticalContentAlignment="Center"
+                                            IsEditable="false" SelectedIndex="0">
+                                            <ComboBoxItem Content="application/json"/> 
+                                            <ComboBoxItem Content="application/x-www-form-urlencoded"/>
+                                            <ComboBoxItem Content="multipart/form-data"/>
+                                        </ComboBox>
+                                        <Button Content="保存" Background="#FF0072C6" Margin="20 10 0 0" Click="save" BorderBrush="{x:Null}"/>
+                                        <Button Content="发送请求" Background="#FF0072C6" Margin="10 10 0 0" Click="send" BorderBrush="{x:Null}"/>
+                                        <Button Content="宇视登录(专属)" Background="#FF0072C6" Margin="10 10 0 0" Click="imosSend" BorderBrush="{x:Null}"/>
+                                        <Button Content="注册信息并等待推送" Background="#FF0072C6" Margin="10 10 0 0" Click="regMsgConsumer" BorderBrush="{x:Null}"/>
+                                    </WrapPanel>
+                                    <TabControl Name="TabControl1" HorizontalAlignment="Left" Width="1300" Height="480" Margin="0,20,0,0" VerticalAlignment="Top">
+                                        <TabItem Header="请求参数">
+                                            <Grid Background="#FFFFFFFF">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="25"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0">
+                                                        <!--ValueChanged="vScrollBar1_ValueChanged"-->
+                                                    <ScrollViewer>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="40"/>
+                                                                <ColumnDefinition/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <RichTextBox Grid.Column="0" Name="rowLineNum"
+                                                                    IsReadOnly="True" Background="#FFB8B8B8"
+                                                                    TextChanged="txtRow_TextChanged"
+                                                                    SizeChanged="txtRow_SizeChanged">
+                                                                <RichTextBox.Resources>
+                                                                    <Style TargetType="{x:Type Paragraph}">
+                                                                        <Setter Property="Margin" Value="0"/>
+                                                                    </Style>
+                                                                </RichTextBox.Resources>
+                                                                <FlowDocument>
+                                                                    <Paragraph>1</Paragraph>
+                                                                </FlowDocument>
+                                                            </RichTextBox>
+
+                                                            <RichTextBox Grid.Column="1" Name="jsonContext"
+                                                                 TextChanged="txtContect_TextChanged" 
+                                                                 MouseWheel="txtContect_MouseWheel"
+                                                                 PreviewKeyDown="txtContent_PreviewKeyDown"
+                                                                 PreviewKeyUp="txtContent_PreviewKeyUp"
+                                                                 PreviewMouseDown="txtContent_PreviewMouseDown"
+                                                                 PreviewMouseMove="txtContent_PreviewMouseMove"
+                                                                 PreviewMouseUp="txtContent_PreviewMouseUp"
+                                                                 >  
+                                                                <RichTextBox.Resources>
+                                                                    <Style TargetType="{x:Type Paragraph}">
+                                                                        <Setter Property="Margin" Value="0"/>
+                                                                    </Style>
+                                                                </RichTextBox.Resources>
+                                                                <FlowDocument></FlowDocument>
+                                                            </RichTextBox>
+                                                        </Grid>
+                                                    </ScrollViewer>
+                                                </Grid>
+                                                <Grid Grid.Row="1" Background="#FFEAEAEA" >
+                                                    <WrapPanel>
+                                                        <Label Content="行:" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                        <Label Content="1" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                    </WrapPanel>
+                                                </Grid>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="响应参数">
+                                            <Grid Background="#FFFFFFFF">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="0.5*"/>
+                                                    <ColumnDefinition Width="0.5*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="30"/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition Height="25"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Grid.Row="0">
+                                                        <Label Content="接口返回的数据格式" FontSize="16"/>
+                                                    </Grid>
+                                                    <Grid Grid.Row="1">
+                                                        <!--ValueChanged="vScrollBar1_ValueChanged"-->
+                                                        <ScrollViewer>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="40"/>
+                                                                    <ColumnDefinition/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <RichTextBox Grid.Column="0" Name="responseRowLineNum1"
+                                                                    IsReadOnly="True" Background="#FFB8B8B8"
+                                                                    TextChanged="txtRow_TextChanged"
+                                                                    SizeChanged="txtRow_SizeChanged">
+                                                                    <RichTextBox.Resources>
+                                                                        <Style TargetType="{x:Type Paragraph}">
+                                                                            <Setter Property="Margin" Value="0"/>
+                                                                        </Style>
+                                                                    </RichTextBox.Resources>
+                                                                    <FlowDocument>
+                                                                        <Paragraph>1</Paragraph>
+                                                                    </FlowDocument>
+                                                                </RichTextBox>
+                                                                <RichTextBox Grid.Column="1" Name="responseJsonContext1"
+                                                                 TextChanged="txtContect_TextChanged" 
+                                                                 MouseWheel="txtContect_MouseWheel"
+                                                                 PreviewKeyDown="txtContent_PreviewKeyDown"
+                                                                 PreviewKeyUp="txtContent_PreviewKeyUp"
+                                                                 PreviewMouseDown="txtContent_PreviewMouseDown"
+                                                                 PreviewMouseMove="txtContent_PreviewMouseMove"
+                                                                 PreviewMouseUp="txtContent_PreviewMouseUp"
+                                                                 >
+                                                                    <RichTextBox.Resources>
+                                                                        <Style TargetType="{x:Type Paragraph}">
+                                                                            <Setter Property="Margin" Value="0"/>
+                                                                        </Style>
+                                                                    </RichTextBox.Resources>
+                                                                    <FlowDocument></FlowDocument>
+                                                                </RichTextBox>
+                                                            </Grid>
+                                                        </ScrollViewer>
+                                                    </Grid>
+                                                    <Grid Grid.Row="2" Background="#FFEAEAEA" >
+                                                        <WrapPanel>
+                                                            <Label Content="行:" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                            <Label Content="1" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                        </WrapPanel>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid Grid.Column="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="30"/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition Height="25"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Grid.Row="0">
+                                                        <Label Content="需要返回的数据格式" FontSize="16"/>
+                                                    </Grid>
+                                                    <Grid Grid.Row="1">
+                                                        <!--ValueChanged="vScrollBar1_ValueChanged"-->
+                                                        <ScrollViewer>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="40"/>
+                                                                    <ColumnDefinition/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <RichTextBox Grid.Column="0" Name="responseRowLineNum2"
+                                                                    IsReadOnly="True" Background="#FFB8B8B8"
+                                                                    TextChanged="txtRow_TextChanged"
+                                                                    SizeChanged="txtRow_SizeChanged">
+                                                                    <RichTextBox.Resources>
+                                                                        <Style TargetType="{x:Type Paragraph}">
+                                                                            <Setter Property="Margin" Value="0"/>
+                                                                        </Style>
+                                                                    </RichTextBox.Resources>
+                                                                    <FlowDocument>
+                                                                        <Paragraph>1</Paragraph>
+                                                                    </FlowDocument>
+                                                                </RichTextBox>
+                                                                <RichTextBox Grid.Column="1" Name="responseJsonContext2"
+                                                                 TextChanged="txtContect_TextChanged" 
+                                                                 MouseWheel="txtContect_MouseWheel"
+                                                                 PreviewKeyDown="txtContent_PreviewKeyDown"
+                                                                 PreviewKeyUp="txtContent_PreviewKeyUp"
+                                                                 PreviewMouseDown="txtContent_PreviewMouseDown"
+                                                                 PreviewMouseMove="txtContent_PreviewMouseMove"
+                                                                 PreviewMouseUp="txtContent_PreviewMouseUp"
+                                                                 >
+                                                                    <RichTextBox.Resources>
+                                                                        <Style TargetType="{x:Type Paragraph}">
+                                                                            <Setter Property="Margin" Value="0"/>
+                                                                        </Style>
+                                                                    </RichTextBox.Resources>
+                                                                    <FlowDocument>
+                                                                        <Paragraph>success</Paragraph>
+                                                                    </FlowDocument>
+                                                                </RichTextBox>
+                                                            </Grid>
+                                                        </ScrollViewer>
+                                                    </Grid>
+                                                    <Grid Grid.Row="2" Background="#FFEAEAEA" >
+                                                        <WrapPanel>
+                                                            <Label Content="行:" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                            <Label Content="1" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                        </WrapPanel>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </TabItem>
+                                    </TabControl>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
